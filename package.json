@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "New node api using express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "node dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neophytz/backend.git"
+  },
+  "author": "FSDP Nov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neophytz/backend/issues"
+  },
+  "homepage": "https://github.com/neophytz/backend#readme"
+}
