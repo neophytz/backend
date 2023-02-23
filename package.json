@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "node dev.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/neophytz/backend/issues"
   },
-  "homepage": "https://github.com/neophytz/backend#readme"
+  "homepage": "https://github.com/neophytz/backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
