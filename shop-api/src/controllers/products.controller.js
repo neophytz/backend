@@ -21,9 +21,13 @@ const { Product } = require('../schemas/product.schema')
 
 //method 2
 const getAll = (req, res) => { 
-    Product.find({}).select('name price').then((result)=> {
+    Product
+    .findById("640cb12f456b231d7568cfc8")
+    .select('name price')
+    .then((result)=> {
         res.send(http_formatter("All products are being displayed", result))
-    }).catch((err) => res.send(http_formatter("Error while finding products", err)));
+    })
+    .catch((err) => res.send(http_formatter("Error while finding products", err)));
 }
 
 const getSingleProduct = (req, res) => {
