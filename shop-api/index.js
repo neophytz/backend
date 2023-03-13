@@ -9,8 +9,15 @@ const mongoose = require("mongoose");
 const productRouter = require('./src/routes/products.routes.js')
 
 const app = express();
+// -> middelware :  mehndi, haldi, sagai, <shaadi>, vidai, shoes churai, honeymooon.
 
-app.use(cors());
+
+app.use(cors()); // middleware.
+
+// CORS - Cross origin resource sharing.
+// 1 girlfriend having multiple boyfriends.
+// 1 boyfriend having multiple girlfriend.
+// -> it enables retrival of information from req.  eg: req.params? req.body.name?
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
