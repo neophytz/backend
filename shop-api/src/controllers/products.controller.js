@@ -22,7 +22,7 @@ const { Product } = require('../schemas/product.schema')
 //method 2
 const getAll = (req, res) => { 
     Product
-    .findById("640cb12f456b231d7568cfc8")
+    .find({}) // all.
     .select('name price')
     .then((result)=> {
         res.send(http_formatter("All products are being displayed", result))
@@ -30,8 +30,20 @@ const getAll = (req, res) => {
     .catch((err) => res.send(http_formatter("Error while finding products", err)));
 }
 
+// const getProductById = (req, res) => {
+//     const id = req.params.id;
+//     if (!id){
+//         return res.send(http_formatter("Error while finding products", new Error("ID is required.")));
+//     }
+
+//     Product.findById(id).then(res => {
+//         res.send(http_formatter("All products are being displayed", result))
+//     }).catch((err) => {res.send(http_formatter("error while finding product", err))})
+// }
+
+// localhost:9090/users/:user/:comments
 const getSingleProduct = (req, res) => {
-    const id = req.params.id;
+    const id = req.params.product_id;
     Product.find({_id:id}).then((result)=>{
         res.send(http_formatter("Product Found", result))
     }).catch((err) => {res.send(http_formatter("error while finding product", err))});
@@ -52,6 +64,14 @@ const createProduct = (req, res) => {
     //     return res.send(http_formatter("Successfully created new product!!"))
     // }
     // return res.send(http_formatter("error while generating new product"))
+
+    // I'm making object of a class. 
+    // this line does following things
+    /**
+     * 1. validation of data
+     * 2. initializing default values that we have defined in the schema.
+     * 3. tranforms the data as defined in the schema.
+     */
     const _product = new Product(req.body);
     _product.save().then(doc => {
         return res.send(http_formatter("Successfully created new product!!", doc))
@@ -60,11 +80,25 @@ const createProduct = (req, res) => {
     })
 }
 
+const updateProductById = (req, res) => {
+    const id = req.params.product_id;
+    const new_price = req.body.price;
+    Product.findOneAndUpdate({_id: id}, {
+        price: new_price
+    }).then(doc => {
+        return res.send(http_formatter("Successfully created new product!!", doc))
+    }).catch(err => {
+        return res.send(http_formatter("Failed to create a product", err, false))
+    })
+}
+
 const deleteProduct = (req, res) => {
-    var id = req.query.id;
-    Product.deleteOne({_id:id}).then((result) => {
-        res.send(http_formatter("successfully deleted", result))
-    }).catch((err)=> res.send(http_formatter("error while deleting product", err)));
+    const product_id = req.params.product_id;
+    Product.findByIdAndDelete(product_id).then(doc => {
+        return res.send(http_formatter("Successfully deleted new product!!", doc))
+    }).catch(err => {
+        return res.send(http_formatter("Failed to deleted a product", err, false))
+    })
     // var idx = products.findIndex(i => i.productId === parseInt(id))
     // if( idx !== -1){
     //     var item = products[idx];
@@ -74,4 +108,4 @@ const deleteProduct = (req, res) => {
     // return res.send(http_formatter("No such product found"))
 }
 
-module.exports = {getAll, getSingleProduct, createProduct, deleteProduct}
+module.exports = {getAll, getSingleProduct, createProduct, deleteProduct, updateProductById}
