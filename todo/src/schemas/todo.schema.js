@@ -16,12 +16,9 @@ const TodoSchema = new Schema({
         default: ''
     },
     author: {
-        type: String,
+        type: Schema.Types.ObjectId, // this is foegin key
+        ref: 'User', // this is the collection that populate uses.
         required: true,
-        minLength: 2,
-        maxLength: 50,
-        trim: true,
-        lowercase: true
     },
     deadline: {
         type: Date,

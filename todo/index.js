@@ -9,12 +9,14 @@ const mongoose = require("mongoose");
 const app = express();
 
 const todoRouter = require('./src/routes/todo.routes')
+const userRouter = require("./src/routes/user.routes")
 
 // CROSS ORIGIN RESOURCE SHARING.
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/todo', todoRouter)
+app.use('/api/user', userRouter)
 
 app.get('/', (req, res) => {
     return res.send({

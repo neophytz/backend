@@ -3,7 +3,8 @@ const { Todo } = require('../schemas/todo.schema');
 
 const get = (req, res) => {
     // find all entries from the Todo table and return it to the user.
-    Todo.find({}).then(result => {
+    Todo.find({}).populate("author")
+    .then(result => {
         // it will get executed only when the DB query is successful.
         return res.status(201).json({data: result})
     }).catch(err => {
@@ -42,4 +43,37 @@ const create = (req, res) => {
     })
 }
 
-module.exports = {get, create};
+const _delete = (req,res) => {
+    const {todo_id} = req.params;
+    Todo.findByIdAndDelete(todo_id).then(result => {
+        // it will get executed only when the DB query is successful.
+        res.status(200).json({data: result})
+    }).catch(err => {
+        // this will get executed if anthing goes wrong.
+        res.status(500).json({data: err})
+    })
+}
+
+const deleteMany = (req, res) => {
+    const ids = req.body.delete_ids;
+    if (!Array.isArray(ids)){
+        return res.status(400).json({
+            message: 'Invalid list of Ids to delete.'
+        })
+    }
+    console.log(ids);
+    // ? delete the todo if its _id is in ids_array; 
+    Todo.deleteMany({
+        _id: {
+            $in: ids
+        }
+    }).then(result => {
+        // it will get executed only when the DB query is successful.
+        res.status(200).json({data: result})
+    }).catch(err => {
+        // this will get executed if anthing goes wrong.
+        res.status(500).json({data: err})
+    })
+}
+
+module.exports = {get, create, _delete, deleteMany};
