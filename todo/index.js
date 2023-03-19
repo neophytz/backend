@@ -15,6 +15,29 @@ const userRouter = require("./src/routes/user.routes")
 app.use(cors());
 app.use(bodyParser.json());
 
+// going to a club
+
+// at gate, you will show your id -> check the age out of it.
+// ok you are good to go -> allow you to access the club.
+// they will not allow you to enter.
+
+// guard -> acting as a middleware.
+// middleware -> middle + software.
+// function which will be incurred when i access any end point.
+
+// app.use((req, res, next) => {
+//     console.log(req.method);
+//     console.log(req.url);
+//     // if req method is get -> allow
+//     // otherwise reject
+
+//     if(req.method==="GET"){
+//         next(); // allow
+//     }else{
+//         res.status(401).json({"err":"not a get request"}); // don't allow
+//     }
+// })
+
 app.use('/api/todo', todoRouter)
 app.use('/api/user', userRouter)
 

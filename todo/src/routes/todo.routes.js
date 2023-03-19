@@ -1,16 +1,17 @@
 const express = require("express");
 const todoRouter = express.Router();
+const auth = require("../middlewares/auth");
 
 const {get, create, _delete, deleteMany} = require('../controllers/todo.controller')
 
 // naming conventions : /api/todo
-todoRouter.get('/', get)
+todoRouter.get('/', auth, get)
 
 // get a unique todo using id : /api/todo/1
 todoRouter.get('/:todo_id', (req,res) => {})
 
 // making a new entry in the database : /api/todo
-todoRouter.post('/', create)
+todoRouter.post('/', auth, create)
 
 // updating an entry? : /api/todo/1
 todoRouter.put('/:todo_id', (req, res) => {})
