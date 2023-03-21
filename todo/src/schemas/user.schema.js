@@ -26,6 +26,13 @@ const UserSchema = new Schema({
         required: true,
         unique: [true, "Duplicate email found, please use another email."],
         validate: [validator.isEmail, "Please enter a  valid email."],
+    },
+    password: {
+        type: String,
+        required: true,
+        minLength: 8,
+        maxLength: 100,
+        // default : "helloworld", this will set the default value.
     }
 }, {
     timestamps: true,

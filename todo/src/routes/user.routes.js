@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 
-const {get, create, update} = require('../controllers/user.controller')
+const {get, create, update, login} = require('../controllers/user.controller')
 
 // naming conventions : /api/user
 userRouter.get('/', get)
@@ -15,5 +15,6 @@ userRouter.put('/:user_id', update)
 // delete an entry? : /api/user/1
 userRouter.delete('/:user_id', (req, res) => {})
 
+userRouter.get('/login', login)
 
 module.exports = userRouter;
