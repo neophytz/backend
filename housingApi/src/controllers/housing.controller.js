@@ -30,7 +30,8 @@ const getDelhi = (req, res) => {
     // perform operations on data itself 
     // operations -> sum, avg
     const pipeline = [{$match: {location:"Delhi"}}
-    ,{$group:{_id: "$category", price : {$last : "$price"}, count : {$sum: 1}}}
+    ,{$sort: {price: -1}}
+    ,{$group:{_id: "$category", minPrice : {$first : "$price"}, count : {$sum: 1}}}
     // _id -> group key
     // datacolumn : {accumulator: "$field"} // syntax
 ]
