@@ -19,6 +19,17 @@ const create = (req, res) => {
     })
 }
 
+const getPrice = (req, res) => {
+    // field : { $operator : value}
+    // logical operators other than not -> $logicalOperator : [{field :{$operator: value}}, {field :{$operator: value}}, .....]
+    // logical operator not -> {field : {$not: {$operator : value}}}
+    Housing.find({
+        category: {$not: {$eq:'2BHK'}}
+    }).then((result) => {
+        return res.status(200).json({data:result})
+    }).catch((err) => res.status(500).json({data:err}))
+}
+
 // aggregation Pipelines
 // typical aggregation pipeline
 // input --> match --> group --> sort --> output
@@ -40,4 +51,4 @@ const getDelhi = (req, res) => {
     }).catch(err => res.status(500).json({data:err}))
 }
 
-module.exports = {get, create, getDelhi}
+module.exports = {get, create, getDelhi, getPrice}

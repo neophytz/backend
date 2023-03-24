@@ -1,7 +1,7 @@
 const express = require("express");
 const housingRouter = express.Router();
 
-const {get, create, getDelhi} = require('../controllers/housing.controller')
+const {get, create, getDelhi, getPrice} = require('../controllers/housing.controller')
 
 // naming conventions : /api/housing
 housingRouter.get('/', get)
@@ -10,5 +10,7 @@ housingRouter.get('/', get)
 housingRouter.post('/', create)
 
 housingRouter.get('/delhi' ,getDelhi)
+
+housingRouter.get('/price', getPrice)
 
 module.exports = housingRouter;
